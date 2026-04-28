@@ -1,0 +1,53 @@
+<h2>Total Order: <span id="total">0</span></h2>
+<script>
+const token = localStorage.getItem("token");
+
+if(!token){
+  location.href = "login.html";
+}
+
+// LOAD DATA
+async function loadData(){
+let res = await fetch("http://localhost:3000/orders",{
+  headers:{ "authorization": token }
+});
+
+let data = await res.json();
+
+let html="";
+data.forEach(d=>{
+html+=`
+<tr>
+<td>${d.id}</td>
+<td>${d.nama}</td>
+<td>${d.wa}</td>
+<td>${d.layanan}</td>
+<td>${d.deskripsi}</td>
+<td><button onclick="hapus(${d.id})">Hapus</button></td>
+</tr>`;
+});
+
+document.getElementById("data").innerHTML = html;
+}
+
+// DELETE
+async function hapus(id){
+await fetch("http://localhost:3000/delete/"+id,{
+  method:"DELETE",
+  headers:{ "authorization": token }
+});
+loadData();
+}
+
+// STATS
+async function loadStats(){
+let res = await fetch("http://localhost:3000/stats",{
+  headers:{ "authorization": token }
+});
+let data = await res.json();
+document.getElementById("total").innerText = data.total;
+}
+
+loadData();
+loadStats();
+</script>

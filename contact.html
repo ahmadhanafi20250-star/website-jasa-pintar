@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontak - Jasa Pintar</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar"><!-- navbar sama --></nav>
+
+    <section class="contact-hero">
+        <div class="container">
+            <h1>Hubungi Kami</h1>
+            <p>Isi form atau chat WhatsApp langsung</p>
+        </div>
+    </section>
+
+    <section class="contact-content">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Informasi Kontak</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-whatsapp"></i>
+                        <div>
+                            <h4>WhatsApp</h4>
+                            <a href="https://wa.me/6281234567890">0812-3456-7890</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <a href="mailto:jasapintar@gmail.com">jasapintar@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Jam Operasional</h4>
+                            <p>24/7 - Respon < 1 jam</p>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="contact-form" id="contactForm">
+                    <h3>Kirim Pesan</h3>
+                    <div class="form-group">
+                        <input type="text" id="name" placeholder="Nama Lengkap" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="phone" placeholder="No WhatsApp" required>
+                    </div>
+                    <div class="form-group">
+                        <select id="service" required>
+                            <option value="">Pilih Layanan</option>
+                            <option value="skripsi-bab1-3">Skripsi Bab 1-3</option>
+                            <option value="skripsi-bab4-5">Skripsi Bab 4-5</option>
+                            <option value="makalah">Makalah</option>
+                            <option value="ppt">PPT</option>
+                            <option value="turnitin">Turnitin</option>
+                            <option value="website">Website</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" placeholder="Detail kebutuhan Anda..." rows="5"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">Kirim Pesan</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

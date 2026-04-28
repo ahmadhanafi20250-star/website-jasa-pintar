@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Pembayaran</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(135deg,#c7f0ff,#eaf8ff);
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+
+/* MAIN BOX */
+.box{
+width:100%;
+max-width:580px;
+background:rgba(255,255,255,0.92);
+backdrop-filter:blur(18px);
+border-radius:26px;
+padding:28px;
+box-shadow:0 25px 70px rgba(0,0,0,0.12);
+}
+
+/* TITLE */
+h2{
+text-align:center;
+margin-bottom:18px;
+}
+
+/* ORDER CARD */
+.card{
+background:#fff;
+border-radius:18px;
+padding:16px;
+box-shadow:0 10px 25px rgba(0,0,0,0.06);
+margin-bottom:15px;
+}
+
+/* ROW LIST */
+.row{
+display:flex;
+align-items:flex-start;
+gap:10px;
+padding:8px 0;
+border-bottom:1px dashed #eee;
+font-size:14px;
+color:#444;
+}
+
+.row:last-child{
+border-bottom:none;
+}
+
+.icon{
+width:22px;
+text-align:center;
+}
+
+/* TOTAL */
+.total-card{
+background:linear-gradient(135deg,#10b981,#34d399);
+color:#fff;
+padding:18px;
+border-radius:18px;
+text-align:center;
+margin:15px 0;
+box-shadow:0 10px 25px rgba(16,185,129,0.3);
+}
+
+.total-card h3{
+margin:0;
+font-size:22px;
+}
+
+/* METHOD CARD */
+.method{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 16px;
+border-radius:16px;
+border:2px solid #eee;
+background:#fff;
+margin:10px 0;
+cursor:pointer;
+transition:.25s;
+}
+
+.method:hover{
+border-color:#10b98155;
+transform:translateY(-2px);
+}
+
+.method.active{
+border-color:#10b981;
+background:#eafff5;
+}
+
+/* LEFT SIDE */
+.left{
+display:flex;
+align-items:center;
+gap:10px;
+font-weight:500;
+}
+
+/* BADGE */
+.badge{
+font-size:11px;
+padding:3px 8px;
+background:#f1f1f1;
+border-radius:10px;
+color:#444;
+}
+
+/* BUTTON */
+.btn{
+margin-top:18px;
+width:100%;
+padding:14px;
+border:none;
+border-radius:16px;
+background:#10b981;
+color:#fff;
+font-size:15px;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+}
+/* ================= QRIS ================= */
+.qris-box{
+text-align:center;
+background:#fff;
+padding:20px;
+border-radius:18px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+margin:15px 0;
+}
+
+.qris-img{
+width:220px;
+max-width:100%;
+margin:15px auto;
+display:block;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,0.15);
+transition:0.3s;
+}
+
+/* efek hover biar lebih keren */
+.qris-img:hover{
+transform:scale(1.05);
+}
+
+.note{
+font-size:13px;
+color:#666;
+margin-top:10px;
+}
+.btn:hover{
+transform:scale(1.02);
+box-shadow:0 12px 25px rgba(16,185,129,0.3);
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>💳 Pembayaran</h2>
+
+<!-- ORDER -->
+<div class="card" id="summary"></div>
+
+<!-- TOTAL -->
+<div class="total-card" id="total">
+<h3>Total Rp 0</h3>
+</div>
+
+<h4>Pilih Metode Pembayaran</h4>
+<div class="qris-box">
+  <h3>💳 Pembayaran QRIS</h3>
+  <p>Scan QR di bawah untuk melakukan pembayaran</p>
+
+  <img src="images/qris.png" alt="QRIS Jasa Pintar" class="qris-img">
+
+  <p class="note">Pastikan nominal sesuai sebelum transfer</p>
+</div>
+
+<!-- GOPAY -->
+<div class="method" onclick="pilih(this,'GOPAY')">
+<div class="left">🟢 GoPay</div>
+<span class="badge">Instant</span>
+</div>
+
+<!-- BCA -->
+<div class="method" onclick="pilih(this,'BCA')">
+<div class="left">🏦 Bank Transfer BCA</div>
+<span class="badge">Manual</span>
+</div>
+
+<button class="btn" onclick="bayar()">Bayar Sekarang</button>
+
+<button class="btn" onclick="kirimBukti()" style="background:#3b82f6;margin-top:10px;">
+📤 Kirim Bukti Transfer
+</button>
+
+<p style="text-align:center;margin-top:10px;font-size:13px;color:#666;">
+Setelah transfer, kirim bukti pembayaran ke admin
+</p>
+
+</div>
+
+<script>
+
+const data = JSON.parse(localStorage.getItem("orderData"));
+let metode = "";
+
+if(data){
+document.getElementById("summary").innerHTML = `
+<div class="row"><div class="icon">👤</div> ${data.nama}</div>
+<div class="row"><div class="icon">📦</div> ${data.layanan}</div>
+<div class="row"><div class="icon">🧾</div> ${data.detail || '-'}</div>
+<div class="row"><div class="icon">📝</div> ${data.pesan || '-'}</div>
+<div class="row"><div class="icon">🆔</div> ${data.orderId || '-'}</div>
+`;
+
+document.getElementById("total").innerHTML =
+`<h3>Total Rp ${Number(data.harga || 0).toLocaleString("id-ID")}</h3>`;
+}
+
+function pilih(el, m){
+metode = m;
+document.querySelectorAll(".method").forEach(e=>e.classList.remove("active"));
+el.classList.add("active");
+}
+function kirimBukti(){
+let harga = data.harga;
+
+let text = `Halo Admin,
+Saya sudah transfer.
+
+Nominal seharusnya: Rp ${harga}
+Mohon dicek ya 🙏`;
+
+window.open(`https://api.whatsapp.com/send?phone=6285219843725&text=${encodeURIComponent(text)}`);
+}
+
+function bayar(){
+
+if(!metode){
+alert("Pilih metode dulu!");
+return;
+}
+
+// ✅ QRIS (tidak redirect)
+if(metode === "QRIS"){
+alert("Silakan scan QRIS yang muncul dan lakukan pembayaran sesuai nominal.");
+}
+
+// ✅ GOPAY
+else if(metode === "GOPAY"){
+alert(`GoPay Payment:
+
+Nomor: 085695516749
+A/N: NUR PRATAMA JULIANTO
+
+Silakan transfer sesuai nominal.`);
+}
+
+// ✅ BCA
+else if(metode === "BCA"){
+alert(`Transfer Bank BCA:
+
+No Rek: 6631044066
+A/N: NUR PRATAMA JULIANTO
+
+Setelah transfer, kirim bukti pembayaran.`);
+}
+}
+</script>
+
+</body>
+</html> 
