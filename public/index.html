@@ -9,18 +9,56 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-    .portfolio{
-padding:100px 20px;
-text-align:center;
+@media (max-width:768px){
 
-/* background beda */
+  body{
+    overflow-x:hidden;
+  }
+
+  .section{
+    margin:15px;
+    padding:40px 15px;
+  }
+
+  .portfolio{
+    margin:15px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .card{
+    width:100%;
+    max-width:100%;
+  }
+
+  .menu{
+    display:none;
+  }
+
+}
+.portfolio-grid{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:15px;
+  margin-top:20px;
+}
+
+.portfolio-grid img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  border-radius:15px;
+}
+
+.portfolio{
 background:linear-gradient(135deg,#f0f9ff,#e0f2fe,#f0f9ff);
 border-radius:30px;
 margin:40px;
 box-shadow:0 20px 60px rgba(0,0,0,0.1);
+padding:30px;
 }
-*{margin:0;padding:0;box-sizing:border-box}
-
 /* BACKGROUND */
 body{
 font-family:'Poppins',sans-serif;
@@ -337,30 +375,17 @@ text-align:left
 width:100%;padding:12px;margin:10px 0;
 border-radius:10px;border:1px solid #ddd;
 }
-
-/* TESTIMONI */
-<h2>Testimoni Client</h2>
-
 <p style="font-size:1.2rem; margin-bottom:25px;">
 💬 Ratusan testimoni asli tersedia di Instagram kami
 </p>
 
-<div class="ig-preview">
-
-<img src="img/testi1.jpg" alt="testimoni 1">
-<img src="img/testi2.jpg" alt="testimoni 2">
-<img src="img/testi3.jpg" alt="testimoni 3">
-
-</div>
-
-<a href="https://instagram.com/jasapintar10" target="_blank" class="btn ig-btn">
+<a href="https://instagram.com/jasapintar10" target="_blank" class="btn">
 <i class="fab fa-instagram"></i> Lihat Semua Testimoni
 </a>
 
-<p class="ig-note">Klik untuk lihat bukti lengkap di Instagram 🔥</p>
-
-</section>
-
+<p style="margin-top:15px;color:#666;font-size:0.95rem;">
+Klik untuk lihat bukti lengkap di Instagram 🔥
+</p>
 /* SOCIAL */
 .social{
 display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:20px;
@@ -811,6 +836,17 @@ Jangan sampai kamu jadi salah satunya.
 
 <section class="section" id="testimoni">
 <h2>Testimoni Client</h2>
+<p style="font-size:1.2rem; margin-bottom:25px;">
+💬 Ratusan testimoni asli tersedia di Instagram kami
+</p>
+
+<a href="https://instagram.com/jasapintar10" target="_blank" class="btn">
+<i class="fab fa-instagram"></i> Lihat Semua Testimoni
+</a>
+
+<p style="margin-top:15px;color:#666;font-size:0.95rem;">
+Klik untuk lihat bukti lengkap di Instagram 🔥
+</p>
 
 <!-- 🔥 TRUST -->
 <div style="display:flex;justify-content:center;gap:30px;margin-bottom:30px;flex-wrap:wrap;">
